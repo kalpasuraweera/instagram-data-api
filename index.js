@@ -26,6 +26,7 @@ app.get("/instagram/:username", async (req, res) => {
     const response = await axios.get(
       `https://www.instagram.com/${req.params.username}/?__a=1`
     );
+    console.log(response.data);
     const $ = cheerio.load(response.data);
     const metaContent = $('meta[property="og:description"]').attr("content");
 
