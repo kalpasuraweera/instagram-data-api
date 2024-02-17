@@ -5,6 +5,21 @@ const cheerio = require("cheerio");
 const app = express();
 const PORT = 3000;
 
+// Default Get Route send data on how to call instagram and TikTok routes
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to the Social Media Scraper API",
+    instagram: {
+      route: "/instagram/:username",
+      description: "Get the data from the Instagram profile",
+    },
+    tiktok: {
+      route: "/tiktok/:username",
+      description: "Get the data from the TikTok profile",
+    },
+  });
+});
+
 //Get the data from the Instagram profile
 app.get("/instagram/:username", async (req, res) => {
   try {
