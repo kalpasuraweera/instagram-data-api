@@ -23,9 +23,19 @@ app.get("/", (req, res) => {
 //Get the data from the Instagram profile
 app.get("/instagram/:username", async (req, res) => {
   try {
-    const response = await axios.get(
-      `https://www.instagram.com/${req.params.username}/?__a=1`
-    );
+    //add headers to get request like cros origin when calling insta api
+    const response = await axios.get(`https://www.instagram.com/${req.params.username}/?__a=1`, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
+      }
+    });
+
+    // const response = await axios.get(
+    //   `https://www.instagram.com/${req.params.username}/?__a=1`,
+    // );
     console.log(response.data);
     const $ = cheerio.load(response.data);
     const metaContent = $('meta[property="og:description"]').attr("content");
