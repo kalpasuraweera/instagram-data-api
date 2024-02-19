@@ -23,25 +23,10 @@ app.get("/", (req, res) => {
 //Get the data from the Instagram profile
 app.get("/instagram/:username", async (req, res) => {
   try {
+
     const response = await axios.get(
       `https://www.instagram.com/${req.params.username}/?__a=1`,
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-        },
-      }
     );
-
-    // const response = await axios.get(
-    //   `https://www.instagram.com/${req.params.username}/?__a=1`,
-    // );
-
-    //find follwers in response.body with regex
-    const followers = response.data.match("Followers");
-    console.log('====================================');
-    console.log(followers);
-    console.log('====================================');
 
     const $ = cheerio.load(response.data);
     const metaContent = $('meta[property="og:description"]').attr("content");
