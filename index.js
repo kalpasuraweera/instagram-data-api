@@ -3,7 +3,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 // Default Get Route send data on how to call instagram and TikTok routes
 app.get("/", (req, res) => {
@@ -23,15 +23,15 @@ app.get("/", (req, res) => {
 //Get the data from the Instagram profile
 app.get("/instagram/:username", async (req, res) => {
   try {
-    //add headers to get request like cros origin when calling insta api
-    const response = await axios.get(`https://www.instagram.com/${req.params.username}/?__a=1`, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Content-Type': 'application/json',
+    const response = await axios.get(
+      `https://www.instagram.com/${req.params.username}/?__a=1`,
+      {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        },
       }
-    });
+    );
 
     // const response = await axios.get(
     //   `https://www.instagram.com/${req.params.username}/?__a=1`,
