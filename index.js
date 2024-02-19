@@ -36,10 +36,16 @@ app.get("/instagram/:username", async (req, res) => {
     // const response = await axios.get(
     //   `https://www.instagram.com/${req.params.username}/?__a=1`,
     // );
-  
+
+    //find follwers in response.body with regex
+    const followers = response.data.match("Followers");
+    console.log('====================================');
+    console.log(followers);
+    console.log('====================================');
+
     const $ = cheerio.load(response.data);
     const metaContent = $('meta[property="og:description"]').attr("content");
-    console.log(metaContent);
+
     const userData = metaContent
       .replace(/Followers|Following|Posts/g, "")
       .split("-")[0]
